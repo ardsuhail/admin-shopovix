@@ -101,7 +101,7 @@ function BannerListContent() {
         })
       })
       const result = await response.json()
-
+ console.log(`/api/banner`)
       if (result.success) {
         // Update local state instead of refetching
         setBannerData(prev => prev.map(banner => 
@@ -121,7 +121,7 @@ function BannerListContent() {
   }
 
   const handleEdit = (id) => {
-    router.push(`/admin/banner/add?id=${id}`)
+    router.push(`/banner/add?id=${id}`)
   }
 
   const handleRefresh = () => {
@@ -177,8 +177,8 @@ function BannerListContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 py-6 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen w-full lg:w-[75vw] bg-gradient-to-br from-gray-50 to-blue-50/30 py-6 px-4">
+      <div className=" mx-auto">
 
         <div className="mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
@@ -200,7 +200,7 @@ function BannerListContent() {
                 Refresh
               </button>
               <a
-                href="/admin/banner/add"
+                href="/banner/add"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
               >
                 <Plus className="w-5 h-5" />
@@ -373,7 +373,7 @@ function BannerListContent() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               {bannerData.length === 0 ? (
                 <a
-                  href="/admin/banner/add"
+                  href="/banner/add"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   <Plus className="w-5 h-5" />

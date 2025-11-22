@@ -32,7 +32,7 @@ const CustomersPage = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/customer-order').then((res) => res.json()).then((data) => {
+    fetch(`/api/customer-order`).then((res) => res.json()).then((data) => {
       setCustomers(data.customer)
       setFilteredCustomers(data.customer)
       setLoading(false)
@@ -107,7 +107,7 @@ const CustomersPage = () => {
   <>
  
       
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen w-full lg:w-[75vw] bg-gray-50 dark:bg-gray-900">
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="px-6 py-6">

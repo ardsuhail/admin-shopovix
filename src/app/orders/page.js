@@ -33,11 +33,11 @@ const AdminOrdersPage = () => {
   }, [])
 
   const orderStatus = async () => {
-    await fetch("/api/track-order", {
+    await fetch(`/api/track-order`, {
       method: "POST",
       body: JSON.stringify({
         awb_code: orders.awb_code,
-        orderId: orders._id
+        orderId: orders.orderId
       })
     });
 
@@ -46,7 +46,7 @@ const AdminOrdersPage = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true)
-      const res = await fetch('/api/allorders')
+      const res = await fetch(`/api/allorders`)
       const data = await res.json()
       setOrders(data.allorders || [])
       setFilteredOrders(data.allorders || [])
@@ -66,7 +66,8 @@ const AdminOrdersPage = () => {
       result = result.filter(order =>
         order.customerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         order.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order._id?.toLowerCase().includes(searchTerm.toLowerCase())
+        order._id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.orderId?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
@@ -102,7 +103,7 @@ const AdminOrdersPage = () => {
   // Update order status
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
-      const res = await fetch('/api/update-order', {
+      const res = await fetch(`/api/update-order`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderId, orderStatus: newStatus })
@@ -119,7 +120,7 @@ const AdminOrdersPage = () => {
   // Update payment status
   const updatePaymentStatus = async (orderId, newStatus) => {
     try {
-      const res = await fetch('/api/update-order', {
+      const res = await fetch(`/api/update-order`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderId, paymentStatus: newStatus })
@@ -177,7 +178,7 @@ const AdminOrdersPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+    <div className="min-h-screen w-full lg:w-[75vw] bg-gray-50 p-4 md:p-6">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Order Management</h1>
@@ -360,7 +361,7 @@ const AdminOrdersPage = () => {
                 <tr key={order._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      #{order._id.slice(-8)}
+                      #{order.orderId}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -468,10 +469,11 @@ const AdminOrdersPage = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-3">Order Information</h3>
-                  <p><strong>Order ID:</strong> {selectedOrder._id}</p>
+                  <p><strong>Order ID:</strong> {selectedOrder.orderId}</p>
+                  <p><strong>Mongodb Document ID:</strong> {selectedOrder._id}</p>
                   <p><strong>Shipment ID:</strong> {selectedOrder.shipment_id}</p>
                   <p><strong>Shiprocket Order ID:</strong> {selectedOrder.shiprocket_order_id}</p>
-                  <p><strong>AWB No:</strong> {selectedOrder.shiprocket_order_id}</p>
+                  <p><strong>AWB No:</strong> {selectedOrder.awb_code || "Shipment not created yet"}</p>
                   <p><strong>Date:</strong> {formatDate(selectedOrder.createdAt)}</p>
                   <p><strong>Payment Method:</strong> {selectedOrder.paymentMethod}</p>
                 </div>

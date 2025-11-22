@@ -22,13 +22,19 @@ const Page = () => {
   const [deleteLoading, setDeleteLoading] = useState(null)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null)
   const subscribersPerPage = 10
+  // Use environment variable if present, otherwise fall back to current origin (helps in production if NEXT_PUBLIC_API_BASE wasn't set)
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || (typeof window !== 'undefined' ? window.location.origin : '')
 
   // Fetch subscribers
   useEffect(() => {
     const fetchSubscribers = async () => {
       try {
         setLoading(true)
-        const res = await fetch('/api/subscriber')
+        const res = await fetch(`/api/subscriber`)
+        if (!res.ok) {
+          const text = await res.text().catch(() => '')
+          throw new Error(`Fetch failed: ${res.status} ${res.statusText} ${text}`)
+        }
         const data = await res.json()
         setSubscribers(data.subscribers || [])
         setFilteredSubscribers(data.subscribers || [])
@@ -40,7 +46,9 @@ const Page = () => {
     }
     fetchSubscribers()
   }, [])
-
+ console.log("subscribers",`/api/subscriber`)
+ console.log("email",subscribers.email)
+ 
   // Filter subscribers based on search
   useEffect(() => {
     const filtered = subscribers.filter(subscriber =>
@@ -63,7 +71,8 @@ const Page = () => {
         setSubscribers(prev => prev.filter(sub => sub._id !== subscriberId))
         setShowDeleteConfirm(null)
       } else {
-        console.error('Failed to delete subscriber')
+        const text = await res.text().catch(() => '')
+        console.error('Failed to delete subscriber', res.status, res.statusText, text)
       }
     } catch (error) {
       console.error('Error deleting subscriber:', error)
@@ -99,7 +108,7 @@ const Page = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen w-full lg:w-[75vw] bg-gray-50 p-6">
       {/* Header Section */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">

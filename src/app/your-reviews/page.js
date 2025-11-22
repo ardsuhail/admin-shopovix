@@ -39,7 +39,7 @@ const AdminReviewsPage = () => {
   const fetchReviews = async () => {
     try {
       setLoading(true)
-      const res = await fetch('/api/reviews')
+      const res = await fetch(`/api/reviews`)
       const data = await res.json()
       setReviews(data.reviews || [])
       setFilteredReviews(data.reviews || [])
@@ -167,7 +167,7 @@ const AdminReviewsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+    <div className="min-h-screen w-full lg:w-[75vw] bg-gray-50 p-4 md:p-6">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Customer Reviews</h1>

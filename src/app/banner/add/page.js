@@ -117,7 +117,7 @@ function BannerAddForm() {
     setLoading(true);
     
     try {
-      const url = bannerId ? `/api/banner/${bannerId}` : '/api/banner';
+      const url = bannerId ? `/api/banner/${bannerId}` : `/api/banner`;
       const method = bannerId ? 'PATCH' : 'POST';
       
       const formData = new FormData();
@@ -146,7 +146,7 @@ function BannerAddForm() {
         
         // Redirect to banners list
         setTimeout(() => {
-          router.push('/admin/banner/allBanners');
+          router.push('/banner/allBanners');
         }, 1000);
         
       } else {
@@ -161,7 +161,7 @@ function BannerAddForm() {
   };
 
   const handleBack = () => {
-    router.push('/admin/banner/allBanners');
+    router.push('/banner/allBanners');
   };
 
   const toggleActiveStatus = () => {
@@ -184,24 +184,18 @@ function BannerAddForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen w-full lg:w-[75vw] bg-gradient-to-br from-green-50 to-blue-50 py-8 px-4">
+      <div className=" mx-auto">
         
         {/* Header Section with Back Button */}
-        <div className="flex items-center justify-between mb-8">
-          <button
-            onClick={handleBack}
-            className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-white rounded-2xl transition-all duration-300 group"
-          >
-            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Banners</span>
-          </button>
+        <div className="flex items-center  mb-8">
+        
           
-          <div className="text-center flex-1">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <div className=" flex flex-col text-center justify-center items-center">
+            <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
               {bannerId ? 'Edit Banner' : 'Create New Banner'}
             </h1>
-            <p className="text-gray-600 max-w-md mx-auto">
+            <p className="text-gray-600 w-full sm:max-w-md mx-auto">
               {bannerId 
                 ? 'Update your banner details and image' 
                 : 'Upload banner image and configure settings for your website'
