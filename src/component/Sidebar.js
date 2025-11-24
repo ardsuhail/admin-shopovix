@@ -9,12 +9,15 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const menuItems = [
-    { name: "Customers", icon: <Users size={20} />, href: "/customer-management" },
-    { name: "Orders", icon: <ShoppingBag size={20} />, href: "/orders" },
-    { name: "Store Subscribers", icon: <Bell size={20} />, href: "/subscribers" },
-    { name: "All Product Reviews", icon: <Star size={20} />, href: "/your-reviews" },
-    { name: "Store Banners", icon: <Image size={20} />, href: "/banner/allBanners" },
-    { name: "Add New Banner", icon: <Image size={20} />, href: "/banner/add" },
+    { name: "Dashboard", icon: <Users size={20} />, href: "/dashboard" },
+    { name: "Customers", icon: <Users size={20} />, href: "/dashboard/customer-management" },
+    { name: "Orders", icon: <ShoppingBag size={20} />, href: "/dashboard/orders" },
+    { name: "Store Subscribers", icon: <Bell size={20} />, href: "/dashboard/subscribers" },
+    { name: "All Product Reviews", icon: <Star size={20} />, href: "/dashboard/your-reviews" },
+    { name: "Store Banners", icon: <Image size={20} />, href: "/dashboard/banner/allBanners" },
+    { name: "Add New Banner", icon: <Image size={20} />, href: "/dashboard/banner/add" },
+    { name: "Customer Queries", icon: <Image size={20} />, href: "/dashboard/customer-queries" },
+    { name: "Create New Admin", icon: <Image size={20} />, href: "/dashboard/create-new-admin" }
   ];
 
   // Simple handlers - no complex logic
@@ -107,6 +110,16 @@ export default function Sidebar() {
                 </li>
               );
             })}
+             <button
+      onClick={async () => {
+        await fetch("/api/logout", { method: "POST" });
+        localStorage.removeItem("notlogin"); 
+        window.location.href = "/login";
+      }}
+      className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all duration-300"
+    >
+      Logout
+    </button>
           </ul>
         </nav>
 
