@@ -476,6 +476,10 @@ const AdminOrdersPage = () => {
                   <p><strong>AWB No:</strong> {selectedOrder.awb_code || "Shipment not created yet"}</p>
                   <p><strong>Date:</strong> {formatDate(selectedOrder.createdAt)}</p>
                   <p><strong>Payment Method:</strong> {selectedOrder.paymentMethod}</p>
+                   <p><strong>Order ID:</strong> {selectedOrder.fbclid}</p>
+                  <p><strong>Order ID:</strong> {selectedOrder.utm_source}</p>
+                  <p><strong>Order ID:</strong> {selectedOrder.utm_medium}</p>
+                  <p><strong>Order ID:</strong> {selectedOrder.utm_campaign}</p>
                 </div>
               </div>
 

@@ -2,11 +2,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Users, ShoppingBag, Bell, Star, Image, ChevronRight } from "lucide-react";
+import { Menu, X, Users, ShoppingBag, Bell, Star, Image, ChevronRight ,ChevronUp,ChevronDown } from "lucide-react";
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const [showCoupon, setShowCoupon] = useState(false)
+  const [showAdmin, setShowAdmin] = useState(false)
 
   const menuItems = [
     { name: "Dashboard", icon: <Users size={20} />, href: "/dashboard" },
@@ -16,8 +18,7 @@ export default function Sidebar() {
     { name: "All Product Reviews", icon: <Star size={20} />, href: "/dashboard/your-reviews" },
     { name: "Store Banners", icon: <Image size={20} />, href: "/dashboard/banner/allBanners" },
     { name: "Add New Banner", icon: <Image size={20} />, href: "/dashboard/banner/add" },
-    { name: "Customer Queries", icon: <Image size={20} />, href: "/dashboard/customer-queries" },
-    { name: "Create New Admin", icon: <Image size={20} />, href: "/dashboard/create-new-admin" }
+    { name: "Customer Queries", icon: <Image size={20} />, href: "/dashboard/customer-queries" }
   ];
 
   // Simple handlers - no complex logic
@@ -102,7 +103,7 @@ export default function Sidebar() {
                     </div>
                     
                     <div className={`
-                      ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
+                      ${isActive ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
                     `}>
                       <ChevronRight size={16} className="text-gray-400" />
                     </div>
@@ -110,6 +111,176 @@ export default function Sidebar() {
                 </li>
               );
             })}
+              <li className="cursor-pointer" onClick={()=>setShowAdmin(!showAdmin)} >
+                   <div className=" flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative" >
+
+                
+                    <div className="flex items-center gap-3">
+                      <div className={`text-gray-400 group-hover:text-white
+                      `}>
+                        <Image size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Manage Admin</span>
+                    </div>
+                    
+                    <div className={`
+                     opacity-100 lg:opacity-0 lg:group-hover:opacity-100
+                    `}>
+                     {showAdmin?<ChevronDown size={16} className="text-gray-400" />:<ChevronRight size={16} className="text-gray-400" />} 
+                    </div>
+                  
+                
+                   </div>
+                </li>
+                  <li className="relative left-5 mr-2 " >
+                  {showAdmin &&  <>
+                 <Link
+                    href={"/dashboard/admins/create-new-admin"}
+                    
+                    className={`
+                      flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative
+                      ${pathname ===  "/dashboard/admins/create-new-admin"
+                        ? "bg-blue-600/20 text-blue-400 border-r-2 border-blue-500" 
+                        : "hover:bg-gray-750 text-gray-300 hover:text-white"
+                      }
+                    `}
+                    onClick={handleLinkClick}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        ${pathname ===  "/dashboard/admins/create-new-admin" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
+                      `}>
+                        <Image size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Add New Admin</span>
+                    </div>
+                    
+                    <div className={`
+                      ${pathname ===  "/dashboard/admins/create-new-admin" ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
+                    `}>
+                      <ChevronRight size={16} className="text-gray-400" />
+                    </div>
+                  </Link>
+                 <Link
+                    href={"/dashboard/admins/manage-store-admins"}
+                    
+                    className={`
+                      flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative
+                      ${pathname ===  "/dashboard/admins/manage-store-admins"
+                        ? "bg-blue-600/20 text-blue-400 border-r-2 border-blue-500" 
+                        : "hover:bg-gray-750 text-gray-300 hover:text-white"
+                      }
+                    `}
+                    onClick={handleLinkClick}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        ${pathname ===  "/dashboard/admins/manage-store-admins" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
+                      `}>
+                        <Image size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Manage Admin</span>
+                    </div>
+                    
+                    <div className={`
+                      ${pathname ===  "/dashboard/admins/manage-store-admins" ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
+                    `}>
+                      <ChevronRight size={16} className="text-gray-400" />
+                    </div>
+                  </Link>
+                </>  }
+                </li>
+              <li className="cursor-pointer" onClick={()=>setShowCoupon(!showCoupon)} >
+                   <div className=" flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative" >
+
+                
+                    <div className="flex items-center gap-3">
+                      <div className={`text-gray-400 group-hover:text-white
+                      `}>
+                        <Image size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Coupons</span>
+                    </div>
+                    
+                    <div className={`
+                     opacity-100 lg:opacity-0 lg:group-hover:opacity-100
+                    `}>
+                     {showCoupon?<ChevronDown size={16} className="text-gray-400" />:<ChevronRight size={16} className="text-gray-400" />} 
+                    </div>
+                  
+                
+                   </div>
+                </li>
+                <li className="relative left-5 mr-2 " >
+                  {showCoupon &&  <>
+                 <Link
+                    href={"/dashboard/Coupon/create"}
+                    
+                    className={`
+                      flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative
+                      ${pathname ===  "/dashboard/Coupon/create"
+                        ? "bg-blue-600/20 text-blue-400 border-r-2 border-blue-500" 
+                        : "hover:bg-gray-750 text-gray-300 hover:text-white"
+                      }
+                    `}
+                    onClick={handleLinkClick}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        ${pathname ===  "/dashboard/Coupon/create" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
+                      `}>
+                        <Image size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Create Coupon</span>
+                    </div>
+                    
+                    <div className={`
+                      ${pathname ===  "/dashboard/Coupon/create" ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
+                    `}>
+                      <ChevronRight size={16} className="text-gray-400" />
+                    </div>
+                  </Link>
+                 <Link
+                    href={"/dashboard/Coupon/coupon-management"}
+                    
+                    className={`
+                      flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative
+                      ${pathname ===  "/dashboard/Coupon/coupon-management"
+                        ? "bg-blue-600/20 text-blue-400 border-r-2 border-blue-500" 
+                        : "hover:bg-gray-750 text-gray-300 hover:text-white"
+                      }
+                    `}
+                    onClick={handleLinkClick}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        ${pathname ===  "/dashboard/Coupon/coupon-management" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
+                      `}>
+                        <Image size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Manage Coupons</span>
+                    </div>
+                    
+                    <div className={`
+                      ${pathname ===  "/dashboard/Coupon/coupon-management" ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
+                    `}>
+                      <ChevronRight size={16} className="text-gray-400" />
+                    </div>
+                  </Link>
+                </>  }
+                </li>
              <button
       onClick={async () => {
         await fetch("/api/logout", { method: "POST" });

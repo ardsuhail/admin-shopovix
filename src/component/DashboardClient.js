@@ -219,7 +219,7 @@ const DashboardClient = ({ initialData }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
+    <div className="min-h-screen w-full lg:w-[75vw]  bg-gradient-to-br from-gray-50 to-blue-50/30">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">

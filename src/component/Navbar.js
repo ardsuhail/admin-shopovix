@@ -1,12 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { FaStore, FaBars, FaTimes, FaShoppingCart, FaEnvelope } from "react-icons/fa";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
+   const [token, setToken] = useState(null)
+   useEffect(() => {
+   const token1=localStorage.getItem("notlogin")
+   setToken(token1)
+   }, [])
+   
   return (
     <nav className="w-full border-b border-gray-200 bg-white/95 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto flex justify-between items-center py-3 px-4 sm:px-6 lg:px-8">
@@ -45,13 +50,24 @@ export default function Navbar() {
           </Link>
           
           <div className="ml-4 pl-4 border-l border-gray-200">
-            <Link 
+          {token?(
+              <Link 
+              href="/dashboard" 
+              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 flex items-center gap-2"
+            >
+              <FaStore className="text-sm" />
+              Admin Dashboard
+            </Link>
+          ):(
+<Link 
               href="/login" 
               className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 flex items-center gap-2"
             >
               <FaStore className="text-sm" />
               Admin Login
             </Link>
+          
+          )}  
           </div>
         </div>
 
