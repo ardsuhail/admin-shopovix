@@ -13,7 +13,7 @@ export default function Navbar() {
    }, [])
    
   return (
-    <nav className="w-full border-b border-gray-200 bg-white/95 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+    <nav className="w-full border-b border-gray-200 bg-white/95 backdrop-blur-lg z-50 shadow-sm">
       <div className="max-w-7xl mx-auto flex justify-between items-center py-3 px-4 sm:px-6 lg:px-8">
         
         {/* Logo */}

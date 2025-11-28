@@ -2,23 +2,28 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Users, ShoppingBag, Bell, Star, Image, ChevronRight ,ChevronUp,ChevronDown } from "lucide-react";
+import { 
+  Menu, X, Users, ShoppingBag, Bell, Star, Image, ChevronRight, ChevronUp, ChevronDown, 
+  LayoutDashboard, MessageSquare, UserPlus, Settings, Eye, BarChart3, Ticket,Tags,Tag
+} from "lucide-react";
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [showCoupon, setShowCoupon] = useState(false)
   const [showAdmin, setShowAdmin] = useState(false)
+  const [showViews, setShowViews] = useState(false)
+  
 
   const menuItems = [
-    { name: "Dashboard", icon: <Users size={20} />, href: "/dashboard" },
+    { name: "Dashboard", icon: <LayoutDashboard size={20} />, href: "/dashboard" },
     { name: "Customers", icon: <Users size={20} />, href: "/dashboard/customer-management" },
     { name: "Orders", icon: <ShoppingBag size={20} />, href: "/dashboard/orders" },
     { name: "Store Subscribers", icon: <Bell size={20} />, href: "/dashboard/subscribers" },
     { name: "All Product Reviews", icon: <Star size={20} />, href: "/dashboard/your-reviews" },
     { name: "Store Banners", icon: <Image size={20} />, href: "/dashboard/banner/allBanners" },
     { name: "Add New Banner", icon: <Image size={20} />, href: "/dashboard/banner/add" },
-    { name: "Customer Queries", icon: <Image size={20} />, href: "/dashboard/customer-queries" }
+    { name: "Customer Queries", icon: <MessageSquare size={20} />, href: "/dashboard/customer-queries" }
   ];
 
   // Simple handlers - no complex logic
@@ -33,7 +38,7 @@ export default function Sidebar() {
         <h1 className="text-xl font-bold tracking-tight">Admin Panel</h1>
         <button 
           onClick={handleMenuClick}
-          className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-all duration-200"
+          className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-all duration-300"
         >
           <Menu size={24} />
         </button>
@@ -42,7 +47,7 @@ export default function Sidebar() {
       {/* BACKDROP */}
       {open && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-all duration-300"
           onClick={handleCloseClick}
         />
       )}
@@ -53,7 +58,7 @@ export default function Sidebar() {
           fixed lg:sticky top-0 left-0 z-50
           w-72 lg:w-64 xl:w-72 h-screen
           bg-gradient-to-b from-gray-900 to-gray-800 text-white shadow-2xl
-          transform transition-all duration-300 ease-in-out
+          transform transition-transform duration-300 ease-in-out
           flex flex-col
           ${open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
           border-r border-gray-700
@@ -67,7 +72,7 @@ export default function Sidebar() {
           </div>
           <button 
             onClick={handleCloseClick}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-700 transition-all duration-200"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-700 transition-all duration-300"
           >
             <X size={22} />
           </button>
@@ -111,6 +116,8 @@ export default function Sidebar() {
                 </li>
               );
             })}
+
+            {/* setshow admin */}
               <li className="cursor-pointer" onClick={()=>setShowAdmin(!showAdmin)} >
                    <div className=" flex items-center justify-between gap-3 px-4 py-3 
                       transition-all duration-200 rounded-xl mx-1
@@ -120,7 +127,7 @@ export default function Sidebar() {
                     <div className="flex items-center gap-3">
                       <div className={`text-gray-400 group-hover:text-white
                       `}>
-                        <Image size={20} />
+                        <Settings size={20} />
                       </div>
                       <span className="text-[15px] font-medium tracking-wide">Manage Admin</span>
                     </div>
@@ -154,7 +161,7 @@ export default function Sidebar() {
                       <div className={`
                         ${pathname ===  "/dashboard/admins/create-new-admin" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
                       `}>
-                        <Image size={20} />
+                        <UserPlus size={20} />
                       </div>
                       <span className="text-[15px] font-medium tracking-wide">Add New Admin</span>
                     </div>
@@ -183,7 +190,7 @@ export default function Sidebar() {
                       <div className={`
                         ${pathname ===  "/dashboard/admins/manage-store-admins" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
                       `}>
-                        <Image size={20} />
+                        <Settings size={20} />
                       </div>
                       <span className="text-[15px] font-medium tracking-wide">Manage Admin</span>
                     </div>
@@ -196,6 +203,95 @@ export default function Sidebar() {
                   </Link>
                 </>  }
                 </li>
+                {/* setshowviews */}
+              <li className="cursor-pointer" onClick={()=>setShowViews(!showViews)} >
+                   <div className=" flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative" >
+
+                
+                    <div className="flex items-center gap-3">
+                      <div className={`text-gray-400 group-hover:text-white
+                      `}>
+                        <Eye size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Store Views</span>
+                    </div>
+                    
+                    <div className={`
+                     opacity-100 lg:opacity-0 lg:group-hover:opacity-100
+                    `}>
+                     {showViews?<ChevronDown size={16} className="text-gray-400" />:<ChevronRight size={16} className="text-gray-400" />} 
+                    </div>
+                  
+                
+                   </div>
+                </li>
+                <li className="relative left-5 mr-2 " >
+                  {showViews &&  <>
+                 <Link
+                    href={"/dashboard/store-views/analytics"}
+                    
+                    className={`
+                      flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative
+                      ${pathname ===  "/dashboard/Coupon/create"
+                        ? "bg-blue-600/20 text-blue-400 border-r-2 border-blue-500" 
+                        : "hover:bg-gray-750 text-gray-300 hover:text-white"
+                      }
+                    `}
+                    onClick={handleLinkClick}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        ${pathname ===  "/dashboard/store-views/analytics" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
+                      `}>
+                        <BarChart3 size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Analytics</span>
+                    </div>
+                    
+                    <div className={`
+                      ${pathname ===  "/dashboard/store-views/analytics" ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
+                    `}>
+                      <ChevronRight size={16} className="text-gray-400" />
+                    </div>
+                  </Link>
+                 <Link
+                    href={"/dashboard/store-views/live-views"}
+                    
+                    className={`
+                      flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative
+                      ${pathname ===  "/dashboard/store-views/live-views"
+                        ? "bg-blue-600/20 text-blue-400 border-r-2 border-blue-500" 
+                        : "hover:bg-gray-750 text-gray-300 hover:text-white"
+                      }
+                    `}
+                    onClick={handleLinkClick}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        ${pathname ===  "/dashboard/store-views/live-views" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
+                      `}>
+                        <Eye size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Live Views</span>
+                    </div>
+                    
+                    <div className={`
+                      ${pathname ===  "/dashboard/store-views/live-views" ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
+                    `}>
+                      <ChevronRight size={16} className="text-gray-400" />
+                    </div>
+                  </Link>
+                </>  }
+                </li>
+
+
+
               <li className="cursor-pointer" onClick={()=>setShowCoupon(!showCoupon)} >
                    <div className=" flex items-center justify-between gap-3 px-4 py-3 
                       transition-all duration-200 rounded-xl mx-1
@@ -205,7 +301,7 @@ export default function Sidebar() {
                     <div className="flex items-center gap-3">
                       <div className={`text-gray-400 group-hover:text-white
                       `}>
-                        <Image size={20} />
+                        <Ticket size={20} />
                       </div>
                       <span className="text-[15px] font-medium tracking-wide">Coupons</span>
                     </div>
@@ -239,7 +335,7 @@ export default function Sidebar() {
                       <div className={`
                         ${pathname ===  "/dashboard/Coupon/create" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
                       `}>
-                        <Image size={20} />
+                        <Tag size={20} />
                       </div>
                       <span className="text-[15px] font-medium tracking-wide">Create Coupon</span>
                     </div>
@@ -268,7 +364,7 @@ export default function Sidebar() {
                       <div className={`
                         ${pathname ===  "/dashboard/Coupon/coupon-management" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
                       `}>
-                        <Image size={20} />
+                        <Tags size={20} />
                       </div>
                       <span className="text-[15px] font-medium tracking-wide">Manage Coupons</span>
                     </div>
@@ -287,7 +383,7 @@ export default function Sidebar() {
         localStorage.removeItem("notlogin"); 
         window.location.href = "/login";
       }}
-      className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all duration-300"
+      className="mt-4 bg-red-500 w-full text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all duration-300"
     >
       Logout
     </button>
