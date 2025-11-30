@@ -121,7 +121,7 @@ function BannerListContent() {
   }
 
   const handleEdit = (id) => {
-    router.push(`/banner/add?id=${id}`)
+    router.push(`/dashboard/banner/add?id=${id}`)
   }
 
   const handleRefresh = () => {

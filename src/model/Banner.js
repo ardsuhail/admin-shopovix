@@ -4,7 +4,7 @@ const BannerSchema=new mongoose.Schema({
     images: { type: String, required: true },
     linkUrl: { type: String },
     altText: { type: String, required: true },
-    position: { type: String, enum: ['top', 'bottom', 'side'] },
+    position: { type: String, enum: ['top', 'bottom', 'side','middle'] },
     isActive: { type: Boolean, default: true },
 },{ timestamps: true });
 

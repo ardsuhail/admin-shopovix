@@ -146,7 +146,7 @@ function BannerAddForm() {
         
         // Redirect to banners list
         setTimeout(() => {
-          router.push('/banner/allBanners');
+          router.push('/dashboard/banner/allBanners');
         }, 1000);
         
       } else {
@@ -274,6 +274,7 @@ function BannerAddForm() {
                       <option value="top">Top Banner</option>
                       <option value="bottom">Bottom Banner</option>
                       <option value="side">Side Banner</option>
+                      <option value="middle">Middle Banner</option>
                     </select>
                   </div>
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
   Menu, X, Users, ShoppingBag, Bell, Star, Image, ChevronRight, ChevronUp, ChevronDown, 
-  LayoutDashboard, MessageSquare, UserPlus, Settings, Eye, BarChart3, Ticket,Tags,Tag
+  LayoutDashboard, MessageSquare, UserPlus, Settings, Eye, BarChart3, Ticket,Tags,Tag,ImagePlus,Images
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -13,7 +13,7 @@ export default function Sidebar() {
   const [showCoupon, setShowCoupon] = useState(false)
   const [showAdmin, setShowAdmin] = useState(false)
   const [showViews, setShowViews] = useState(false)
-  
+  const [showBanner, setShowBanner] = useState(false)  
 
   const menuItems = [
     { name: "Dashboard", icon: <LayoutDashboard size={20} />, href: "/dashboard" },
@@ -21,8 +21,6 @@ export default function Sidebar() {
     { name: "Orders", icon: <ShoppingBag size={20} />, href: "/dashboard/orders" },
     { name: "Store Subscribers", icon: <Bell size={20} />, href: "/dashboard/subscribers" },
     { name: "All Product Reviews", icon: <Star size={20} />, href: "/dashboard/your-reviews" },
-    { name: "Store Banners", icon: <Image size={20} />, href: "/dashboard/banner/allBanners" },
-    { name: "Add New Banner", icon: <Image size={20} />, href: "/dashboard/banner/add" },
     { name: "Customer Queries", icon: <MessageSquare size={20} />, href: "/dashboard/customer-queries" }
   ];
 
@@ -371,6 +369,95 @@ export default function Sidebar() {
                     
                     <div className={`
                       ${pathname ===  "/dashboard/Coupon/coupon-management" ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
+                    `}>
+                      <ChevronRight size={16} className="text-gray-400" />
+                    </div>
+                  </Link>
+                </>  }
+                </li>
+
+                
+                 {/* banners */}
+
+                   <li className="cursor-pointer" onClick={()=>setShowBanner(!showBanner)} >
+                   <div className=" flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative" >
+
+                
+                    <div className="flex items-center gap-3">
+                      <div className={`text-gray-400 group-hover:text-white
+                      `}>
+                        <Image size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Banner</span>
+                    </div>
+                    
+                    <div className={`
+                     opacity-100 lg:opacity-0 lg:group-hover:opacity-100
+                    `}>
+                     {showBanner?<ChevronDown size={16} className="text-gray-400" />:<ChevronRight size={16} className="text-gray-400" />} 
+                    </div>
+                  
+                
+                   </div>
+                </li>
+                <li className="relative left-5 mr-2 " >
+                  {showBanner &&  <>
+                 <Link
+                    href={"/dashboard/banner/add"}
+                    
+                    className={`
+                      flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative
+                      ${pathname ===  "/dashboard/banner/add"
+                        ? "bg-blue-600/20 text-blue-400 border-r-2 border-blue-500" 
+                        : "hover:bg-gray-750 text-gray-300 hover:text-white"
+                      }
+                    `}
+                    onClick={handleLinkClick}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        ${pathname ===  "/dashboard/banner/add" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
+                      `}>
+                        <ImagePlus size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Add Banner</span>
+                    </div>
+                    
+                    <div className={`
+                      ${pathname ===  "/dashboard/banner/add" ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
+                    `}>
+                      <ChevronRight size={16} className="text-gray-400" />
+                    </div>
+                  </Link>
+                 <Link
+                    href={"/dashboard/banner/allBanners"}
+                    
+                    className={`
+                      flex items-center justify-between gap-3 px-4 py-3 
+                      transition-all duration-200 rounded-xl mx-1
+                      group relative
+                      ${pathname ===  "/dashboard/banner/allBanners"
+                        ? "bg-blue-600/20 text-blue-400 border-r-2 border-blue-500" 
+                        : "hover:bg-gray-750 text-gray-300 hover:text-white"
+                      }
+                    `}
+                    onClick={handleLinkClick}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        ${pathname ===  "/dashboard/banner/allBanners" ? "text-blue-400" : "text-gray-400 group-hover:text-white"}
+                      `}>
+                        <Images size={20} />
+                      </div>
+                      <span className="text-[15px] font-medium tracking-wide">Manage Banners</span>
+                    </div>
+                    
+                    <div className={`
+                      ${pathname ===  "/dashboard/banner/allBanners" ? "opacity-100" : " opacity-100 lg:opacity-0 lg:group-hover:opacity-100"}
                     `}>
                       <ChevronRight size={16} className="text-gray-400" />
                     </div>
